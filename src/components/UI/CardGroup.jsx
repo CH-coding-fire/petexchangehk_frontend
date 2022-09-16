@@ -134,7 +134,7 @@ const CardGroup = ({user}) => {
 
 	useEffect(() => {
 		axios
-			.get(`${process.env.BACKEND_URL}/adoptions/`)
+			.get(`${process.env.BACKEND_URL}/adoptions/`||'/adoptions/')
 			.then((values) => {
 				console.log('values.data:', values.data);
 				let sortedData;

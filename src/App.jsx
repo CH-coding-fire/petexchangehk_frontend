@@ -37,6 +37,8 @@ function App() {
 	const [queryContext, setQueryContext] = useState(null)
 	// const [userContext, setUserContext] = useContext(null)
 
+
+	console.log(process.env.BACKEND_URL)
 	useEffect(() => {
 		const getUser = async () => {
 			fetch(`${process.env.BACKEND_URL}/auth/login/success`||'/auth/login/success', {
