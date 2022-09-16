@@ -42,7 +42,7 @@ function App() {
 
 	useEffect(() => {
 		const getUser = async () => {
-			fetch(BACKEND_URL||'/auth/login/success', {
+			fetch(`${BACKEND_URL}/auth/login/success`||'/auth/login/success', {
 				method: 'GET',
 				credentials: 'include',
 				headers: {
