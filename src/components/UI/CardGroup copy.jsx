@@ -29,7 +29,7 @@ const CardGroup = (props) => {
 	if (data.length == 0) {
 		console.log('hi');
 		axios
-			.get('/api/adoptions/')
+			.get('/adoptions/')
 			.then((values) => {
 				setData(values.data);
 				showLoadingOrError('');

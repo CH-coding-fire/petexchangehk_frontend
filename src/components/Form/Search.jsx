@@ -41,7 +41,6 @@ function Search({ searchQueryHandler }) {
 
     return (
         <div className="d-flex justify-content-center ">
-            <div>fuck you</div>
             {/* <div>{validationText}</div> */}
 
                         <div className="border border-2 p-3 d-flex justify-content-center flex-wrap shadow rounded ">

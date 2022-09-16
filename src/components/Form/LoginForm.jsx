@@ -6,7 +6,7 @@ import googleLogo from '../../image/g-logo.png';
 
 function LoginForm() {
 	const loginHandler = (companyOfOAuth) => {
-		const backendUrlAuth = `/api/auth/${companyOfOAuth}`;
+		const backendUrlAuth = `/auth/${companyOfOAuth}`;
 		window.open(backendUrlAuth, '_self');
 	}
 
@@ -32,7 +32,7 @@ function LoginForm() {
 						</span>
 					</div>
 				</div>
-k			</div>
+</div>
 		</div>
 	);
 }

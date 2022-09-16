@@ -16,6 +16,7 @@ import { queryAnimalTypeFilter } from '../../scripts/queryAnimalTypeFilter';
 import splitAvailUnavail from '../../scripts/splitAvailUnavail';
 import { checkHaveShadow, shadowAssigner } from '../../scripts/shadowController';
 import UpdateAnimalModal from './UpdateAnimalModal';
+import { BACKEND_URL } from '../../App';
 
 
 
@@ -98,7 +99,7 @@ const CardGroup = ({user}) => {
 		console.log(animalId)
 
 
-		axios.put('/api/adoptions/', { animalId: (animalId? animalId:data[index]._id), ...body })
+		axios.put('/adoptions/', { animalId: (animalId? animalId:data[index]._id), ...body })
 			.then((res) => {
 				if (option === 'updateAvail' || option === 'updateSuccess') {
 					data[index].shadow = { shadow: !avail, option: option }
@@ -114,7 +115,7 @@ const CardGroup = ({user}) => {
 	}
 
 	const deleteAdoptionHandler = (index) => {
-		axios.delete(`/api/adoptions/${data[index]._id}`)
+		axios.delete(`/adoptions/${data[index]._id}`)
 			.then((msg) => {
 				console.log(msg)
 				setConfirmModalShow(false);
@@ -134,7 +135,7 @@ const CardGroup = ({user}) => {
 
 	useEffect(() => {
 		axios
-			.get('/api/adoptions/')
+			.get(`${BACKEND_URL}/adoptions/`)
 			.then((values) => {
 				console.log('values.data:', values.data);
 				let sortedData;

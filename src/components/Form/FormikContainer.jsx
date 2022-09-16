@@ -178,7 +178,7 @@ function FormikContainer(props) {
 		console.log(fileServerIds)
 		values.animalImages = fileServerIds
 		axios
-			.post('/api/adoptions/', values, {
+			.post('/adoptions/', values, {
 			})
 			.then((res) => {
 				console.log(res)
@@ -263,7 +263,7 @@ function FormikContainer(props) {
 												}}
 												server={
 													{
-														url: "/api/adoptions",
+														url: "/adoptions",
 
 														revert: { url: '/revert' },
 

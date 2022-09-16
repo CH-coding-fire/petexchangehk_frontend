@@ -21,7 +21,7 @@ function BuildNickName() {
 
 	const onSubmit = async (values) => {
 		console.log('tryFetchReqUser...');
-		await fetch('/api/users/nicknameContact', {
+		await fetch('/users/nicknameContact', {
 			method: 'POST',
 			credentials: 'include',
 			headers: {

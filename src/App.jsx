@@ -24,6 +24,8 @@ import { QueryContext } from './Context/QueryContext';
 import { useContext } from 'react';
 import TestSameValue from './components/UI/TestSameValue';
 
+export const BACKEND_URL = `https://petexchangehk.herokuapp.com`
+
 
 
 axios.defaults.withCredentials = true;
@@ -40,7 +42,7 @@ function App() {
 
 	useEffect(() => {
 		const getUser = async () => {
-			fetch('/api/auth/login/success', {
+			fetch(BACKEND_URL||'/auth/login/success', {
 				method: 'GET',
 				credentials: 'include',
 				headers: {
@@ -76,7 +78,6 @@ function App() {
 		// setQuery(query)
 	}
 
-
 	return (
 
 		<QueryContext.Provider value={{ queryContext, setQueryContext }}>
@@ -103,11 +104,6 @@ function App() {
 						path="/.well-known/pki-validation/3B9904FB619246AC9422A8FD1D2B4005.txt"
 						element={<div>hello</div>}
 					/>
-					{/* <HashRouter path="/.well-known/pki-validation/3B9904FB619246AC9422A8FD1D2B4005.txt">
-
-
-					</HashRouter> */}
-
 					<Route path="*" element={<div>404 Cannot find the page</div>} />
 				</Routes>
 			</div>
