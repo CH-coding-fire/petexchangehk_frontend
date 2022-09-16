@@ -78,7 +78,6 @@ function FormikContainer(props) {
 					return animal.animalPrice
 				case 'sellOrFreeOptions':
 					return animal.sellOrFreeOptions
-
 				default:
 					return
 			}
@@ -152,10 +151,6 @@ function FormikContainer(props) {
 	});
 
 			console.log(props.animalToBeUpdated)
-
-
-
-
 	const onSubmit = (values) => {
 		console.log(('FORM DATA: ', values));
 		if (props.updateAnimalHandler) { //if we are updating an animal
@@ -178,7 +173,7 @@ function FormikContainer(props) {
 		console.log(fileServerIds)
 		values.animalImages = fileServerIds
 		axios
-			.post('/adoptions/', values, {
+			.post(`${process.env.BACKEND_URL}/adoptions/`||'/adoptions/', values, {
 			})
 			.then((res) => {
 				console.log(res)
@@ -264,9 +259,7 @@ function FormikContainer(props) {
 												server={
 													{
 														url: "/adoptions",
-
 														revert: { url: '/revert' },
-
 														process: {
 															url: '/process',
 															method: 'POST',

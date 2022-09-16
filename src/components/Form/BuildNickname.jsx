@@ -21,7 +21,7 @@ function BuildNickName() {
 
 	const onSubmit = async (values) => {
 		console.log('tryFetchReqUser...');
-		await fetch('/users/nicknameContact', {
+		await fetch(`${process.env.BACKEND_URL}/users/nicknameContact`||'/users/nicknameContact', {
 			method: 'POST',
 			credentials: 'include',
 			headers: {

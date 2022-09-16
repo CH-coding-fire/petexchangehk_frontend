@@ -24,9 +24,6 @@ import { QueryContext } from './Context/QueryContext';
 import { useContext } from 'react';
 import TestSameValue from './components/UI/TestSameValue';
 
-export const BACKEND_URL = `https://petexchangehk.herokuapp.com`
-
-
 
 axios.defaults.withCredentials = true;
 
@@ -42,7 +39,7 @@ function App() {
 
 	useEffect(() => {
 		const getUser = async () => {
-			fetch(`${BACKEND_URL}/auth/login/success`||'/auth/login/success', {
+			fetch(`${process.env.BACKEND_URL}/auth/login/success`||'/auth/login/success', {
 				method: 'GET',
 				credentials: 'include',
 				headers: {
@@ -111,5 +108,4 @@ function App() {
 
 	);
 }
-
 export default App;
