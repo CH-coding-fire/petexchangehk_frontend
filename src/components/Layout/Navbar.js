@@ -20,7 +20,7 @@ const logout = () => {
 };
 
 function NavBar({ user }) {
-	console.log('USER',user);
+	console.log('USER:',user);
 	const navigate = useNavigate();
     const { setQueryContext } = useContext(QueryContext);
 	const searchHandler = () => {

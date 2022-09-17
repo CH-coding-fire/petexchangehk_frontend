@@ -38,7 +38,7 @@ function App() {
 	// const [userContext, setUserContext] = useContext(null)
 
 
-	console.log(process.env.REACT_APP_BACKEND_URL)
+	// console.log(process.env.REACT_APP_BACKEND_URL)
 	useEffect(() => {
 		const getUser = async () => {
 			fetch(`${process.env.REACT_APP_BACKEND_URL}/auth/login/success`||'/auth/login/success', {
