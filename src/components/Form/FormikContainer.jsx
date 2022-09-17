@@ -173,7 +173,7 @@ function FormikContainer(props) {
 		console.log(fileServerIds)
 		values.animalImages = fileServerIds
 		axios
-			.post(`${process.env.BACKEND_URL}/adoptions/`||'/adoptions/', values, {
+			.post(`${process.env.REACT_APP_BACKEND_URL}/adoptions/`||'/adoptions/', values, {
 			})
 			.then((res) => {
 				console.log(res)

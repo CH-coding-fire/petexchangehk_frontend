@@ -98,7 +98,7 @@ const CardGroup = ({user}) => {
 		console.log(animalId)
 
 
-		axios.put(`${process.env.BACKEND_URL}/adoptions/`||'/adoptions/', { animalId: (animalId? animalId:data[index]._id), ...body })
+		axios.put(`${process.env.REACT_APP_BACKEND_URL}/adoptions/`||'/adoptions/', { animalId: (animalId? animalId:data[index]._id), ...body })
 			.then((res) => {
 				if (option === 'updateAvail' || option === 'updateSuccess') {
 					data[index].shadow = { shadow: !avail, option: option }
@@ -114,7 +114,7 @@ const CardGroup = ({user}) => {
 	}
 
 	const deleteAdoptionHandler = (index) => {
-		axios.delete(`${process.env.BACKEND_URL}/adoptions/${data[index]._id}`||`/adoptions/${data[index]._id}`)
+		axios.delete(`${process.env.REACT_APP_BACKEND_URL}/adoptions/${data[index]._id}`||`/adoptions/${data[index]._id}`)
 			.then((msg) => {
 				console.log(msg)
 				setConfirmModalShow(false);
@@ -134,7 +134,7 @@ const CardGroup = ({user}) => {
 
 	useEffect(() => {
 		axios
-			.get(`${process.env.BACKEND_URL}/adoptions/`||'/adoptions/')
+			.get(`${process.env.REACT_APP_BACKEND_URL}/adoptions/`||'/adoptions/')
 			.then((values) => {
 				console.log('values.data:', values.data);
 				let sortedData;

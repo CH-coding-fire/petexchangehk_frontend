@@ -6,7 +6,7 @@ import googleLogo from '../../image/g-logo.png';
 
 function LoginForm() {
 	const loginHandler = (companyOfOAuth) => {
-		const backendUrlAuth = `${process.env.BACKEND_URL}/auth/${companyOfOAuth}`||`/auth/${companyOfOAuth}`;
+		const backendUrlAuth = `${process.env.REACT_APP_BACKEND_URL}/auth/${companyOfOAuth}`||`/auth/${companyOfOAuth}`;
 		window.open(backendUrlAuth, '_self');
 	}
 	return (
