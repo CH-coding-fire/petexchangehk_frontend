@@ -48,10 +48,12 @@ function App() {
 					Accept: 'application/json',
 					'Content-Type': 'application/json',
 					'Access-Control-Allow-Credentials': true,
+
 				},
 				mode:'cors'
 			})
 				.then((response) => {
+					console.log(response)
 					if (response.status === 200) return response.json();
 					throw new Error('authentication has been failed');
 				})
@@ -63,7 +65,8 @@ function App() {
 				})
 				.catch((err) => {
 					console.log('ERROR!!', err);
-				});
+				})
+				;
 		};
 		getUser();
 	}, []);
