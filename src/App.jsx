@@ -43,12 +43,11 @@ function App() {
 		const getUser = async () => {
 			fetch(`${process.env.REACT_APP_BACKEND_URL}/auth/login/success`||'/auth/login/success', {
 				method: 'GET',
-				// credentials: 'include',
+				credentials: 'include',
 				headers: {
 					Accept: 'application/json',
 					'Content-Type': 'application/json',
 					'Access-Control-Allow-Credentials': true,
-					'Access-Control-Allow-Origin': 'https://petexchangehk-frontend.vercel.app/'
 				},
 				mode:'cors'
 			})
