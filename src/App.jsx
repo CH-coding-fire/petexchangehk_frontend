@@ -49,6 +49,7 @@ function App() {
 					'Content-Type': 'application/json',
 					'Access-Control-Allow-Credentials': true,
 				},
+				mode:'cors'
 			})
 				.then((response) => {
 					if (response.status === 200) return response.json();
