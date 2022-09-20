@@ -57,7 +57,8 @@ function App() {
 					console.log(response)
 
 					const asyobj = await response.json()
-					console.log(asyobj)
+					console.log('asyobj', asyobj)
+					console.log('hello world')
 
 					if (response.message === 'no user, have not login') {
 						console.log('there is no user!')
