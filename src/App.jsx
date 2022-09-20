@@ -52,10 +52,11 @@ function App() {
 				},
 				mode:'cors'
 			})
-				.then((response) => {
-
+				.then(async (response) => {
 					console.log('the json object', response.json())
 					console.log(response)
+
+					const asyobj = await response.json()
 
 					if (response.message === 'no user, have not login') {
 						console.log('there is no user!')
@@ -65,6 +66,7 @@ function App() {
 					throw new Error('authentication has been failed');
 				})
 				.then(async (user) => {
+					console.log('user from App.jsx', user)
 					setUser(user);
 					if(!user.nickname){
 					navigate('/createnickname')
