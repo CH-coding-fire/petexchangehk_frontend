@@ -50,7 +50,6 @@ function App() {
 					'Access-Control-Allow-Credentials': true,
 
 				},
-				mode:'cors'
 			})
 				.then(async (response) => {
 					// console.log('the json object', response.json().body)
@@ -66,10 +65,6 @@ function App() {
 					// }
 					//If response is ok, then have the response
 					if (response.status === 200) return response.json();
-					if (response.status === 444) {
-						console.log('there is no user, register first!')
-						return
-					}
 					throw new Error('authentication has been failed');
 				})
 				.then(async (user) => {
