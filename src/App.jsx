@@ -53,7 +53,8 @@ function App() {
 				mode:'cors'
 			})
 				.then((response) => {
-					console.log(response)
+
+					console.log('the json object', response.json())
 					console.log(response.message)
 					if (response.message === 'no user, have not login') {
 						console.log('there is no user!')
