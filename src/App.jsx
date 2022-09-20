@@ -54,6 +54,7 @@ function App() {
 			})
 				.then((response) => {
 					console.log(response)
+					console.log(response.message)
 					if (response.message === 'no user, have not login') {
 						console.log('there is no user!')
 						return
