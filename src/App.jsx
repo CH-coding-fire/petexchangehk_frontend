@@ -54,8 +54,9 @@ function App() {
 			})
 				.then((response) => {
 
-					console.log('the json object', response.json().message)
-					console.log(response.message)
+					console.log('the json object', response.json())
+					console.log(response)
+
 					if (response.message === 'no user, have not login') {
 						console.log('there is no user!')
 						return

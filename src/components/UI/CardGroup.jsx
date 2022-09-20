@@ -136,6 +136,7 @@ const CardGroup = ({user}) => {
 		axios
 			.get(`${process.env.REACT_APP_BACKEND_URL}/adoptions/`||'/adoptions/')
 			.then((values) => {
+				console.log('values:', values)
 				console.log('values.data:', values.data);
 				let sortedData;
 				console.log('QUERY', queryContext)
