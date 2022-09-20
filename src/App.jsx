@@ -36,8 +36,6 @@ function App() {
 	const [query, setQuery] = useState(null);
 	const [queryContext, setQueryContext] = useState(null)
 	// const [userContext, setUserContext] = useContext(null)
-
-
 	// console.log(process.env.REACT_APP_BACKEND_URL)
 	useEffect(() => {
 		const getUser = async () => {
@@ -81,19 +79,15 @@ function App() {
 		};
 		getUser();
 	}, []);
-
 	if (user && user.nickname == null && pathname !== '/createnickname') {
 		navigate('/createnickname');
 		console.log('no nick name');
 	}
-
 	const searchQueryHandler = (query) => {
 		console.log('query:', query);
 		// setQuery(query)
 	}
-
 	return (
-
 		<QueryContext.Provider value={{ queryContext, setQueryContext }}>
 			<NavBar className='position-sticky' user={user} />
 			{/* <TestSameValue/> */}
