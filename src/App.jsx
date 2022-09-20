@@ -56,6 +56,7 @@ function App() {
 					console.log(response)
 					if (response.message === 'no user, have not login') {
 						console.log('there is no user!')
+						return
 					}
 					if (response.status === 200) return response.json();
 					throw new Error('authentication has been failed');
