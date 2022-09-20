@@ -53,20 +53,23 @@ function App() {
 				mode:'cors'
 			})
 				.then(async (response) => {
-					console.log('the json object', response.json().body)
-					console.log(response)
-					console.log('response.body:', response.body)
-					console.log('wait...')
-					const asyobj = await response.json()
-					console.log('asyobj', asyobj)
-					console.log('hello world')
-
-					if (response.message === 'no user, have not login') {
-						console.log('there is no user!')
-						return
-					}
+					// console.log('the json object', response.json().body)
+					// console.log(response)
+					// console.log('response.body:', response.body)
+					// console.log('wait...')
+					// const asyobj = await response.json()
+					// console.log('asyobj', asyobj)
+					// console.log('hello world')
+					// if (response.message === 'no user, have not login') {
+					// 	console.log('there is no user!')
+					// 	return
+					// }
 					//If response is ok, then have the response
 					if (response.status === 200) return response.json();
+					if (response.status === 444) {
+						console.log('there is no user, register first!')
+						return
+					}
 					throw new Error('authentication has been failed');
 				})
 				.then(async (user) => {
