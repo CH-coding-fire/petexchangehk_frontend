@@ -11,7 +11,7 @@ export const checkHaveShadow = (animal) => {
 
 
 export const shadowAssigner = (dataArray) => {
-					console.log('assigning shadow');
+					// console.log('assigning shadow');
 					for (let animal of dataArray) {
 						if (animal.adoptionSuccessful === false && animal.availableForAdoption === false) {
 							animal.shadow = { shadow: true, option: 'updateAvail' }
@@ -19,6 +19,6 @@ export const shadowAssigner = (dataArray) => {
 							animal.shadow = { shadow: true, option: 'updateSuccess' }
 						}
 					}
-					console.log(dataArray);
+					// console.log(dataArray);
 					return dataArray
 				}

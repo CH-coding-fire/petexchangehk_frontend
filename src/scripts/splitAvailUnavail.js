@@ -2,7 +2,7 @@ export default function splitAvailUnavail(data) {
     let availAdoptData = [];
     let unavailPauseAdoptData = [];
     let unavailSuccessData = [];
-    console.log(data);
+    // console.log(data);
     data.forEach(animal => {
         if (animal.availableForAdoption === true) {
             availAdoptData.push(animal);
@@ -19,9 +19,9 @@ export default function splitAvailUnavail(data) {
             }
         }
     })
-    console.log('availAdoptData', availAdoptData);
-    console.log('unavailPauseAdoptData',unavailPauseAdoptData);
-    console.log('unavailSuccessData',unavailSuccessData);
+    // console.log('availAdoptData', availAdoptData);
+    // console.log('unavailPauseAdoptData',unavailPauseAdoptData);
+    // console.log('unavailSuccessData',unavailSuccessData);
 
     return availAdoptData.concat(unavailPauseAdoptData, unavailSuccessData);
 }
