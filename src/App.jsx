@@ -53,9 +53,10 @@ function App() {
 				mode:'cors'
 			})
 				.then(async (response) => {
-					console.log('the json object', response.json())
+					console.log('the json object', response.json().body)
 					console.log(response)
-
+					console.log('response.body:', response.body)
+					console.log('wait...')
 					const asyobj = await response.json()
 					console.log('asyobj', asyobj)
 					console.log('hello world')
@@ -64,6 +65,7 @@ function App() {
 						console.log('there is no user!')
 						return
 					}
+					//If response is ok, then have the response
 					if (response.status === 200) return response.json();
 					throw new Error('authentication has been failed');
 				})
