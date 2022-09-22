@@ -65,8 +65,9 @@ function App() {
 					// 	return
 					// }
 					//If response is ok, then have the response
+					console.log('the response.status is: ',response.status );
 					if (response.status === 200 || response.status === 204) {
-						console.log('the response.status is: response.status' );
+						console.log('going to pass response.json()')
 						return response.json();
 					}
 					throw new Error('authentication has been failed');
