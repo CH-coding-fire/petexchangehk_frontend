@@ -40,6 +40,8 @@ function App() {
 
 	//The reason I use useEffect is want the app to load the user status once
 	//every time the app is loaded.
+
+	console.log('the app is running')
 	useEffect(() => {
 		const getUser = async () => {
 			fetch(`${process.env.REACT_APP_BACKEND_URL}/auth/login/success`||'/auth/login/success', {
