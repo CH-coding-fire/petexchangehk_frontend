@@ -37,6 +37,9 @@ function App() {
 	const [queryContext, setQueryContext] = useState(null)
 	// const [userContext, setUserContext] = useContext(null)
 	// console.log(process.env.REACT_APP_BACKEND_URL)
+
+	//The reason I use useEffect is want the app to load the user status once
+	//every time the app is loaded.
 	useEffect(() => {
 		const getUser = async () => {
 			fetch(`${process.env.REACT_APP_BACKEND_URL}/auth/login/success`||'/auth/login/success', {
@@ -49,7 +52,7 @@ function App() {
 
 				},
 			})
-				.then(async (response) => {
+				.then(async (response) => { //I need to
 					// console.log('the json object', response.json().body)
 					// console.log(response)
 					// console.log('response.body:', response.body)
@@ -62,7 +65,7 @@ function App() {
 					// 	return
 					// }
 					//If response is ok, then have the response
-					if (response.status === 200) return response.json();
+					if (response.status === 200 ||response.status === 204) return response.json();
 					throw new Error('authentication has been failed');
 				})
 				.then(async (user) => {
