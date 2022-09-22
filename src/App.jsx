@@ -65,7 +65,10 @@ function App() {
 					// 	return
 					// }
 					//If response is ok, then have the response
-					if (response.status === 200 ||response.status === 204) return response.json();
+					if (response.status === 200 || response.status === 204) {
+						console.log('the response.status is: response.status' );
+						return response.json();
+					}
 					throw new Error('authentication has been failed');
 				})
 				.then(async (user) => {
