@@ -79,6 +79,10 @@ function App() {
 					throw new Error('authentication has been failed');
 				})
 				.then(async (user) => {
+					if (user === { success: 'false' }) {
+						console.log('the server said no user')
+						return
+					}
 					console.log('user from App.jsx', user)
 					setUser(user);
 					if(!user.nickname){
