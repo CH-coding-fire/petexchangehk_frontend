@@ -80,6 +80,7 @@ function App() {
 				})
 				.then(async (user) => {
 					console.log(user)
+					console.log(typeof(user))
 					if (user === { success: false }) {
 
 						console.log('the server said no user')
