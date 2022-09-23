@@ -79,7 +79,9 @@ function App() {
 					throw new Error('authentication has been failed');
 				})
 				.then(async (user) => {
-					if (user === { success: 'false' }) {
+					console.log(user)
+					if (user === { success: false }) {
+
 						console.log('the server said no user')
 						return
 					}
