@@ -2,11 +2,12 @@ import axios from 'axios';
 import { Button, Card } from 'react-bootstrap';
 import loginButtonClasses from '../UI/loginButton.module.css';
 import googleLogo from '../../image/g-logo.png';
+import { targetServerURL } from '../../App';
 
 
 function LoginForm() {
 	const loginHandler = (companyOfOAuth) => {
-		const backendUrlAuth = `${process.env.REACT_APP_BACKEND_URL}/auth/${companyOfOAuth}`||`/auth/${companyOfOAuth}`;
+		const backendUrlAuth = `${targetServerURL}/auth/${companyOfOAuth}`||`/auth/${companyOfOAuth}`;
 		window.open(backendUrlAuth, '_self');
 	}
 	return (

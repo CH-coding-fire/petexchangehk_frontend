@@ -16,6 +16,7 @@ import { queryAnimalTypeFilter } from '../../scripts/queryAnimalTypeFilter';
 import splitAvailUnavail from '../../scripts/splitAvailUnavail';
 import { checkHaveShadow, shadowAssigner } from '../../scripts/shadowController';
 import UpdateAnimalModal from './UpdateAnimalModal';
+import { targetServerURL } from '../../App';
 
 
 
@@ -134,9 +135,6 @@ const CardGroup = ({user}) => {
 
 	useEffect(() => {
 		const targetRoute = '/adoptions/'
-		const targetServerURL =
-				`${(process.env.REACT_APP_LOCAL_BACKEND_8080
-				|| process.env.REACT_APP_BACKEND_URL)}`
 		axios
 			.get(`${targetServerURL}${targetRoute}`)
 			.then((values) => {

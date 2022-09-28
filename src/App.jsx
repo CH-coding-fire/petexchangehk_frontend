@@ -24,8 +24,11 @@ import { QueryContext } from './Context/QueryContext';
 import { useContext } from 'react';
 import TestSameValue from './components/UI/TestSameValue';
 
+// axios.defaults.withCredentials = true;
 
-axios.defaults.withCredentials = true;
+export const targetServerURL =
+				`${(process.env.REACT_APP_LOCAL_BACKEND_8080
+				|| process.env.REACT_APP_BACKEND_URL)}`
 
 function App() {
 	const [user, setUser] = useState('');
@@ -43,17 +46,14 @@ function App() {
 	useEffect(() => {
 		const getUser = async () => {
 			const targetRoute = '/auth/login/success/'
-			const targetServerURL =
-				`${(process.env.REACT_APP_LOCAL_BACKEND_8080
-				|| process.env.REACT_APP_BACKEND_URL)}`
 			fetch(`${targetServerURL}${targetRoute}`, {
 				method: 'GET',
 				credentials: 'include',
-				headers: {
-					Accept: 'application/json',
-					'Content-Type': 'application/json',
-					'Access-Control-Allow-Credentials': true,
-				},
+				// headers: {
+				// 	Accept: 'application/json',
+				// 	'Content-Type': 'application/json',
+				// 	// 'Access-Control-Allow-Credentials': true,
+				// },
 			})
 				.then(async (response) => { //I need to
 					// console.log('the json object', response.json().body)
