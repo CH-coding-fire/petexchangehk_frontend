@@ -133,8 +133,12 @@ const CardGroup = ({user}) => {
 
 
 	useEffect(() => {
+		const targetRoute = '/adoptions/'
+		const targetServerURL =
+				`${(process.env.REACT_APP_LOCAL_BACKEND_8080
+				|| process.env.REACT_APP_BACKEND_URL)}`
 		axios
-			.get(`${process.env.REACT_APP_BACKEND_URL}/adoptions/`||'/adoptions/')
+			.get(`${targetServerURL}${targetRoute}`)
 			.then((values) => {
 				// console.log('values:', values)
 				console.log('values.data:', values.data);

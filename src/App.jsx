@@ -36,15 +36,17 @@ function App() {
 	const [query, setQuery] = useState(null);
 	const [queryContext, setQueryContext] = useState(null)
 	// const [userContext, setUserContext] = useContext(null)
-	// console.log(process.env.REACT_APP_BACKEND_URL)
 
 	//The reason I use useEffect is want the app to load the user status once
 	//every time the app is loaded.
-
 	console.log('the app is running')
 	useEffect(() => {
 		const getUser = async () => {
-			fetch(`${process.env.REACT_APP_BACKEND_URL}/auth/login/success`||'/auth/login/success', {
+			const targetRoute = '/auth/login/success/'
+			const targetServerURL =
+				`${(process.env.REACT_APP_LOCAL_BACKEND_8080
+				|| process.env.REACT_APP_BACKEND_URL)}`
+			fetch(`${targetServerURL}${targetRoute}`, {
 				method: 'GET',
 				credentials: 'include',
 				headers: {
