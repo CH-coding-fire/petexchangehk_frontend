@@ -10,13 +10,13 @@ import {
 	NavLink,
 } from 'react-bootstrap';
 import { Link, useNavigate } from 'react-router-dom';
+import { targetServerURL } from '../../App';
 import { QueryContext } from '../../Context/QueryContext';
 
 
 
-
 const logout = () => {
-	window.open('/auth/logout', '_self');
+	window.open(`${targetServerURL}/auth/logout`, '_self');
 };
 
 function NavBar({ user }) {

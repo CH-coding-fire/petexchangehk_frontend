@@ -24,7 +24,7 @@ import { QueryContext } from './Context/QueryContext';
 import { useContext } from 'react';
 import TestSameValue from './components/UI/TestSameValue';
 
-// axios.defaults.withCredentials = true;
+axios.defaults.withCredentials = true;
 
 export const targetServerURL =
 				`${(process.env.REACT_APP_LOCAL_BACKEND_8080
@@ -46,48 +46,21 @@ function App() {
 	useEffect(() => {
 		const getUser = async () => {
 			const targetRoute = '/auth/login/success/'
-			fetch(`${targetServerURL}${targetRoute}`, {
-				method: 'GET',
-				credentials: 'include',
-				// headers: {
-				// 	Accept: 'application/json',
-				// 	'Content-Type': 'application/json',
-				// 	// 'Access-Control-Allow-Credentials': true,
-				// },
-			})
-				.then(async (response) => { //I need to
-					// console.log('the json object', response.json().body)
-					// console.log(response)
-					// console.log('response.body:', response.body)
-					// console.log('wait...')
-					// const asyobj = await response.json()
-					// console.log('asyobj', asyobj)
-					// console.log('hello world')
-					// if (response.message === 'no user, have not login') {
-					// 	console.log('there is no user!')
-					// 	return
-					// }
-					//If response is ok, then have the response
-					console.log('handling the response...')
-					console.log('the response.status is: ', response.status);
-					console.log('the response.status is: ', response);
-
-					// console.log('RESPONSE.JSON:', response.json())
-					if (response.status === 200 || response.status === 204) {
-						console.log('going to pass response.json()')
-						return response.json();
-					}
-					throw new Error('authentication has been failed');
-				})
-				.then(async (user) => {
-					console.log(user)
-					console.log(typeof(user))
+			axios.get(`${targetServerURL}/auth/login/success/`)
+				// .then(async (response) => {
+				// 	if (response.status === 200 || response.status === 204) {
+				// 		// return response.json();
+				// 	}
+				// 	// throw new Error('authentication has been failed');
+				// })
+				.then(async (response) => {
+					const user = response.data
 					if (user.success === false) {
-
 						console.log('the server said no user')
 						return
 					}
-					console.log('user from App.jsx', user)
+					console.log('userInfo from App.jsx', user)
+
 					setUser(user);
 					if(!user.nickname){
 					navigate('/createnickname')
@@ -96,7 +69,40 @@ function App() {
 				.catch((err) => {
 					console.log('ERROR!!', err);
 				})
-				;
+
+
+
+
+			// fetch(`${targetServerURL}${targetRoute}`, {
+			// 	method: 'GET',
+			// 	credentials: 'include',
+			// 	// headers: {
+			// 		// Accept: 'application/json',
+			// 		// 'Content-Type': 'application/json',
+			// 	// },
+			// })
+			// 	.then(async (response) => {
+			// 		if (response.status === 200 || response.status === 204) {
+			// 			console.log('going to pass response.json()')
+			// 			return response.json();
+			// 		}
+			// 		throw new Error('authentication has been failed');
+			// 	})
+			// 	.then(async (user) => {
+			// 		if (user.success === false) {
+			// 			console.log('the server said no user')
+			// 			return
+			// 		}
+			// 		console.log('user from App.jsx', user)
+			// 		setUser(user);
+			// 		if(!user.nickname){
+			// 		navigate('/createnickname')
+			// 		}
+			// 	})
+			// 	.catch((err) => {
+			// 		console.log('ERROR!!', err);
+			// 	})
+			// 	;
 		};
 		getUser();
 	}, []);

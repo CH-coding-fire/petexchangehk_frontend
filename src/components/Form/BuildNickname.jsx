@@ -8,6 +8,7 @@ import FormikControl from './FormikControl';
 import classes from './simpleFormTemplate.module.css';
 
 import { useState } from 'react';
+import { targetServerURL } from '../../App';
 
 function BuildNickName() {
 	const initialValues = {
@@ -21,7 +22,7 @@ function BuildNickName() {
 
 	const onSubmit = async (values) => {
 		console.log('tryFetchReqUser...');
-		await fetch(`${process.env.BACKEND_URL}/users/nicknameContact`||'/users/nicknameContact', {
+		await fetch(`${targetServerURL}/users/nicknameContact`||'/users/nicknameContact', {
 			method: 'POST',
 			credentials: 'include',
 			headers: {
