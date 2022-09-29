@@ -47,12 +47,6 @@ function App() {
 		const getUser = async () => {
 			const targetRoute = '/auth/login/success/'
 			axios.get(`${targetServerURL}/auth/login/success/`)
-				// .then(async (response) => {
-				// 	if (response.status === 200 || response.status === 204) {
-				// 		// return response.json();
-				// 	}
-				// 	// throw new Error('authentication has been failed');
-				// })
 				.then(async (response) => {
 					const user = response.data
 					if (user.success === false) {
@@ -60,7 +54,6 @@ function App() {
 						return
 					}
 					console.log('userInfo from App.jsx', user)
-
 					setUser(user);
 					if(!user.nickname){
 					navigate('/createnickname')
