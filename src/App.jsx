@@ -43,7 +43,7 @@ function App() {
 	//The reason I use useEffect is want the app to load the user status once
 	//every time the app is loaded.
 	console.log('FUCK YOU BITCH WHY VERCEL IS NOT UPDATING')
-	console.log('just to test')
+	// console.log('just to test')
 	// console.log('just to test')
 
 
