@@ -42,10 +42,10 @@ function App() {
 
 	//The reason I use useEffect is want the app to load the user status once
 	//every time the app is loaded.
-	console.log('the app is running')
+	console.log('FUCK YOU BITCH WHY VERCEL IS NOT UPDATING')
 	useEffect(() => {
 		const getUser = async () => {
-			const targetRoute = '/auth/login/success/'
+
 			axios.get(`${targetServerURL}/auth/login/success/`)
 				.then(async (response) => {
 					const user = response.data
@@ -65,7 +65,7 @@ function App() {
 
 
 
-
+// const targetRoute = '/auth/login/success/'
 			// fetch(`${targetServerURL}${targetRoute}`, {
 			// 	method: 'GET',
 			// 	credentials: 'include',
