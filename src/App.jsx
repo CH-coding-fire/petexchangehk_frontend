@@ -43,10 +43,10 @@ function App() {
 	//every time the app is loaded.
 	// console.log('just to test')
 
-	// axios.get(`${targetServerURL}`, {withCredentials:true} )
-	// 	.then(async (response) => {
-	// 	console.log("response from /req: ", response)
-	// })
+	axios.get(`${targetServerURL}`, {withCredentials:true} )
+		.then(async (response) => {
+		console.log("response from /r: ", response)
+	})
 
 
 	const getUser = async () => {
@@ -118,7 +118,7 @@ function App() {
 			// 	})
 			// 	;
 		// };
-		getUser();
+		// getUser();
 	}, []);
 	if (user && user.nickname == null && pathname !== '/createnickname') {
 		navigate('/createnickname');
