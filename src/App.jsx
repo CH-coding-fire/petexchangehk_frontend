@@ -44,6 +44,12 @@ function App() {
 	//every time the app is loaded.
 	console.log('FUCK YOU BITCH WHY VERCEL IS NOT UPDATING')
 	console.log('just to test')
+	console.log('just to test')
+
+
+
+
+
 	useEffect(() => {
 		const getUser = async () => {
 
