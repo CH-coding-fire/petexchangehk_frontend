@@ -41,32 +41,51 @@ function App() {
 
 	//The reason I use useEffect is want the app to load the user status once
 	//every time the app is loaded.
-	console.log('FUCK YOU BITCH WHY VERCEL IS NOT UPDATING')
 	// console.log('just to test')
-	console.log('just to test')
+
+	// axios.get(`${targetServerURL}`, {withCredentials:true} )
+	// 	.then(async (response) => {
+	// 	console.log("response from /req: ", response)
+	// })
 
 
-
-
+	const getUser = async () => {
+		axios.get(`${targetServerURL}/auth/login/success/`, { withCredentials: true })
+			.then(async (response) => {
+				const user = response.data
+				if (user.success === false) {
+					console.log('the server said no user')
+					return
+				}
+				console.log('userInfo from App.jsx', user)
+				setUser(user);
+				if (!user.nickname) {
+					navigate('/createnickname')
+				}
+			})
+			.catch((err) => {
+				console.log('ERROR!!', err);
+			})
+	}
 
 	useEffect(() => {
-		const getUser = async () => {
-			axios.get(`${targetServerURL}/auth/login/success/`, {withCredentials:true})
-				.then(async (response) => {
-					const user = response.data
-					if (user.success === false) {
-						console.log('the server said no user')
-						return
-					}
-					console.log('userInfo from App.jsx', user)
-					setUser(user);
-					if(!user.nickname){
-					navigate('/createnickname')
-					}
-				})
-				.catch((err) => {
-					console.log('ERROR!!', err);
-				})
+		// const getUser = async () => {
+		// 	axios.get(`${targetServerURL}/auth/login/success/`, {withCredentials:true})
+		// 		.then(async (response) => {
+		// 			const user = response.data
+		// 			if (user.success === false) {
+		// 				console.log('the server said no user')
+		// 				return
+		// 			}
+		// 			console.log('userInfo from App.jsx', user)
+		// 			setUser(user);
+		// 			if(!user.nickname){
+		// 			navigate('/createnickname')
+		// 			}
+		// 		})
+		// 		.catch((err) => {
+		// 			console.log('ERROR!!', err);
+		// 		})
 // const targetRoute = '/auth/login/success/'
 			// fetch(`${targetServerURL}${targetRoute}`, {
 			// 	method: 'GET',
@@ -98,7 +117,7 @@ function App() {
 			// 		console.log('ERROR!!', err);
 			// 	})
 			// 	;
-		};
+		// };
 		getUser();
 	}, []);
 	if (user && user.nickname == null && pathname !== '/createnickname') {
