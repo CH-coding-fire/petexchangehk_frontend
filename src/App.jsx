@@ -24,7 +24,6 @@ import { QueryContext } from './Context/QueryContext';
 import { useContext } from 'react';
 import TestSameValue from './components/UI/TestSameValue';
 
-axios.defaults.withCredentials = true;
 
 export const targetServerURL =
 				`${(process.env.REACT_APP_LOCAL_BACKEND_8080
@@ -52,8 +51,7 @@ function App() {
 
 	useEffect(() => {
 		const getUser = async () => {
-
-			axios.get(`${targetServerURL}/auth/login/success/`)
+			axios.get(`${targetServerURL}/auth/login/success/`, {withCredentials:true})
 				.then(async (response) => {
 					const user = response.data
 					if (user.success === false) {
@@ -69,9 +67,6 @@ function App() {
 				.catch((err) => {
 					console.log('ERROR!!', err);
 				})
-
-
-
 // const targetRoute = '/auth/login/success/'
 			// fetch(`${targetServerURL}${targetRoute}`, {
 			// 	method: 'GET',
