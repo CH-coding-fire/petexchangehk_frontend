@@ -45,9 +45,8 @@ function App() {
 
 	axios.get(`${targetServerURL}`, {withCredentials:true} )
 		.then(async (response) => {
-		console.log("response from /r: ", response)
-	})
-
+		console.log("response from backend url /: ", response) //asdf
+		})
 
 	const getUser = async () => {
 		axios.get(`${targetServerURL}/auth/login/success/`, { withCredentials: true })
@@ -118,7 +117,7 @@ function App() {
 			// 	})
 			// 	;
 		// };
-		// getUser();
+		getUser();
 	}, []);
 	if (user && user.nickname == null && pathname !== '/createnickname') {
 		navigate('/createnickname');
