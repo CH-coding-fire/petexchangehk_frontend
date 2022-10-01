@@ -23,8 +23,10 @@ import { QueryContext } from './Context/QueryContext';
 // import { UserContext } from './Context/UserContext';
 import { useContext } from 'react';
 import TestSameValue from './components/UI/TestSameValue';
+// const { createProxyMiddleware } = require('http-proxy-middleware');
 
 
+// const { createProxyMiddleware } = require('http-proxy-middleware');
 export const targetServerURL =
 				`${(process.env.REACT_APP_LOCAL_BACKEND_8080
 				|| process.env.REACT_APP_BACKEND_URL)}`
@@ -48,6 +50,7 @@ function App() {
 		console.log("response from backend url /: ", response) //asdf
 		})
 
+	console.log(process.env.REACT_APP_proxy_url)
 	const getUser = async () => {
 		axios.get(`${targetServerURL}/auth/login/success/`, { withCredentials: true })
 			.then(async (response) => {
@@ -65,6 +68,10 @@ function App() {
 			.catch((err) => {
 				console.log('ERROR!!', err);
 			})
+	}
+
+	const testProxy = async () => {
+		fetch(`/api/testingProxy`)
 	}
 
 	useEffect(() => {
@@ -118,6 +125,7 @@ function App() {
 			// 	;
 		// };
 		getUser();
+		testProxy()
 	}, []);
 	if (user && user.nickname == null && pathname !== '/createnickname') {
 		navigate('/createnickname');
