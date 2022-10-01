@@ -44,10 +44,10 @@ function App() {
 	//The reason I use useEffect is want the app to load the user status once
 	//every time the app is loaded.
 
-	axios.get(`${targetServerURL}`, {withCredentials:true} )
-		.then(async (response) => {
-		console.log("response from backend url /: ", response) //asdf
-		})
+	// axios.get(`${targetServerURL}`, {withCredentials:true} )
+	// 	.then(async (response) => {
+	// 	console.log("response from backend url /: ", response) //asdf
+	// 	})
 
 	// console.log(process.env.REACT_APP_proxy_url)
 	const getUser = async () => {
@@ -72,6 +72,7 @@ function App() {
 	useEffect(() => {
 		getUser();
 	}, []);
+
 	if (user && user.nickname == null && pathname !== '/createnickname') {
 		navigate('/createnickname');
 		console.log('no nick name');
