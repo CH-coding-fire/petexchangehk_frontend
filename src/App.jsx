@@ -43,14 +43,13 @@ function App() {
 
 	//The reason I use useEffect is want the app to load the user status once
 	//every time the app is loaded.
-	// console.log('just to test')
 
 	axios.get(`${targetServerURL}`, {withCredentials:true} )
 		.then(async (response) => {
 		console.log("response from backend url /: ", response) //asdf
 		})
 
-	console.log(process.env.REACT_APP_proxy_url)
+	// console.log(process.env.REACT_APP_proxy_url)
 	const getUser = async () => {
 		axios.get(`${targetServerURL}/auth/login/success/`, { withCredentials: true })
 			.then(async (response) => {
@@ -70,62 +69,8 @@ function App() {
 			})
 	}
 
-	const testProxy = async () => {
-		fetch(`/api/testingProxy`)
-	}
-
 	useEffect(() => {
-		// const getUser = async () => {
-		// 	axios.get(`${targetServerURL}/auth/login/success/`, {withCredentials:true})
-		// 		.then(async (response) => {
-		// 			const user = response.data
-		// 			if (user.success === false) {
-		// 				console.log('the server said no user')
-		// 				return
-		// 			}
-		// 			console.log('userInfo from App.jsx', user)
-		// 			setUser(user);
-		// 			if(!user.nickname){
-		// 			navigate('/createnickname')
-		// 			}
-		// 		})
-		// 		.catch((err) => {
-		// 			console.log('ERROR!!', err);
-		// 		})
-// const targetRoute = '/auth/login/success/'
-			// fetch(`${targetServerURL}${targetRoute}`, {
-			// 	method: 'GET',
-			// 	credentials: 'include',
-			// 	// headers: {
-			// 		// Accept: 'application/json',
-			// 		// 'Content-Type': 'application/json',
-			// 	// },
-			// })
-			// 	.then(async (response) => {
-			// 		if (response.status === 200 || response.status === 204) {
-			// 			console.log('going to pass response.json()')
-			// 			return response.json();
-			// 		}
-			// 		throw new Error('authentication has been failed');
-			// 	})
-			// 	.then(async (user) => {
-			// 		if (user.success === false) {
-			// 			console.log('the server said no user')
-			// 			return
-			// 		}
-			// 		console.log('user from App.jsx', user)
-			// 		setUser(user);
-			// 		if(!user.nickname){
-			// 		navigate('/createnickname')
-			// 		}
-			// 	})
-			// 	.catch((err) => {
-			// 		console.log('ERROR!!', err);
-			// 	})
-			// 	;
-		// };
 		getUser();
-		testProxy()
 	}, []);
 	if (user && user.nickname == null && pathname !== '/createnickname') {
 		navigate('/createnickname');

@@ -1,4 +1,4 @@
-  "rewrites": [
+ {"rewrites": [
     {
       "source": "/api/:path*",
       "destination": "https://petexchangehk.herokuapp.com/:path*"
@@ -8,3 +8,4 @@
       "destination": "https://petexchangehk.herokuapp.com/:path*/"
     }
   ]
+  }
