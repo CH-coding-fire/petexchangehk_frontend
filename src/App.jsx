@@ -62,7 +62,7 @@ function App() {
 		axios.get(`${targetServerURL}/auth/login/success/`, { withCredentials: true })
 			.then(async (response) => {
 				const user = response.data
-				if (user.success === false) {
+				if (user.success === false || !user.success) {
 					console.log('the server said no user')
 					return
 				}
