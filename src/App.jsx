@@ -57,6 +57,8 @@ function App() {
 
 	// console.log(process.env.REACT_APP_proxy_url)
 
+	const proxy_url = (process.env.REACT_APP_LOCAL_BACKEND_8080 || process.env.REACT_APP_BACKEND_URL)
+	console.log('the proxy_url is:', proxy_url)
 	console.log(`REACT_APP_proxy_url_api:`, process.env.REACT_APP_proxy_url_api)
 	console.log(`REACT_APP_BACKEND_URL:`,process.env.REACT_APP_BACKEND_URL)
 
