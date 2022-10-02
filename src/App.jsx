@@ -29,12 +29,12 @@ import TestSameValue from './components/UI/TestSameValue';
 
 
 // const { createProxyMiddleware } = require('http-proxy-middleware');
-// export const targetServerURL =
-// 				`${(process.env.REACT_APP_LOCAL_BACKEND_8080
-// 		|| process.env.REACT_APP_BACKEND_URL)}`
-
 export const targetServerURL =
-				process.env.REACT_APP_proxy_url_api
+				`${(process.env.REACT_APP_LOCAL_BACKEND_8080
+		|| process.env.REACT_APP_BACKEND_URL)}`
+
+// export const targetServerURL =
+// 				process.env.REACT_APP_proxy_url_api
 
 
 function App() {
@@ -57,10 +57,10 @@ function App() {
 
 	// console.log(process.env.REACT_APP_proxy_url)
 
-	const proxy_url = (process.env.REACT_APP_LOCAL_BACKEND_8080 || process.env.REACT_APP_BACKEND_URL)
-	console.log('the proxy_url is:', proxy_url)
-	console.log(`REACT_APP_proxy_url_api:`, process.env.REACT_APP_proxy_url_api)
-	console.log(`REACT_APP_BACKEND_URL:`,process.env.REACT_APP_BACKEND_URL)
+	// const proxy_url = (process.env.REACT_APP_LOCAL_BACKEND_8080 || process.env.REACT_APP_BACKEND_URL)
+	// console.log('the proxy_url is:', proxy_url)
+	// console.log(`REACT_APP_proxy_url_api:`, process.env.REACT_APP_proxy_url_api)
+	// console.log(`REACT_APP_BACKEND_URL:`,process.env.REACT_APP_BACKEND_URL)
 
 
 
