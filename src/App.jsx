@@ -57,6 +57,10 @@ function App() {
 
 	// console.log(process.env.REACT_APP_proxy_url)
 
+	console.log(`REACT_APP_proxy_url_api:`, process.env.REACT_APP_proxy_url_api)
+	console.log(`REACT_APP_BACKEND_URL:`,process.env.REACT_APP_BACKEND_URL)
+
+
 
 	const getUser = async () => {
 		axios.get(`${targetServerURL}/auth/login/success/`, { withCredentials: true })
