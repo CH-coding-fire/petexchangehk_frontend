@@ -26,10 +26,16 @@ import TestSameValue from './components/UI/TestSameValue';
 // const { createProxyMiddleware } = require('http-proxy-middleware');
 
 
+
+
 // const { createProxyMiddleware } = require('http-proxy-middleware');
+// export const targetServerURL =
+// 				`${(process.env.REACT_APP_LOCAL_BACKEND_8080
+// 		|| process.env.REACT_APP_BACKEND_URL)}`
+
 export const targetServerURL =
-				`${(process.env.REACT_APP_LOCAL_BACKEND_8080
-				|| process.env.REACT_APP_BACKEND_URL)}`
+				process.env.REACT_APP_proxy_url_api
+
 
 function App() {
 	const [user, setUser] = useState('');
@@ -50,6 +56,8 @@ function App() {
 	// 	})
 
 	// console.log(process.env.REACT_APP_proxy_url)
+
+
 	const getUser = async () => {
 		axios.get(`${targetServerURL}/auth/login/success/`, { withCredentials: true })
 			.then(async (response) => {
@@ -69,9 +77,19 @@ function App() {
 			})
 	}
 
+	const testProxy = async () => {
+		axios.get(`/api/hello`)
+			.then(async (response) => {
+			console.log('response from /api/hello: ', response )
+		})
+	}
+
 	useEffect(() => {
 		getUser();
+		testProxy()
 	}, []);
+
+
 
 	if (user && user.nickname == null && pathname !== '/createnickname') {
 		navigate('/createnickname');
