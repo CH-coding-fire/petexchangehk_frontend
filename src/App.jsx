@@ -84,7 +84,7 @@ function App() {
 	}
 
 	const testProxy = async () => {
-		axios.get(`/api/hello`)
+		axios.get(`/hello`)
 			.then(async (response) => {
 			console.log('response from /api/hello: ', response )
 		})
