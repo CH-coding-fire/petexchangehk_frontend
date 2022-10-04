@@ -29,7 +29,7 @@ const CardGroup = ({user}) => {
 	const navigate = useNavigate();
 	const { queryContext, setQueryContext } = useContext(QueryContext)
 	const [data, setData] = useState([]); //This is for initiating data as empty to ready to GET data
-	const [loadingOrError, showLoadingOrError] = useState('loading...'); //This is for show loading if GET not completed
+	const [loadingOrError, showLoadingOrError] = useState('loading 載入中...'); //This is for show loading if GET not completed
 	const [show, setShow] = useState(false); //This is for showing modal or not, initial value is not show
 	const [controlNumber, setControlNumber] = useState(null);
 	const [slidersState, setSlidersState] = useState(initialSlidersState);
@@ -152,8 +152,19 @@ const CardGroup = ({user}) => {
 					sortedData = shuffleArray(values.data)
 				}
 				setData(shadowAssigner(splitAvailUnavail(sortedData)))
+				return shadowAssigner(splitAvailUnavail(sortedData))
+			}).then((dataRetrieved) => {
+					// console.log(dataRetrieved.length)
+				if (dataRetrieved.length === 0) {
+					console.log('no datas')
+					showLoadingOrError('沒有搜尋結果, 可能你要的動物不存在, 或者擴大搜索範圍')
+				} else {
+				showLoadingOrError('')
 
-			}).then(()=>showLoadingOrError(''))
+				}
+			}
+			)
+
 			.catch((err) => {
 				console.log(err);
 				showLoadingOrError(err.message);
@@ -197,14 +208,16 @@ const CardGroup = ({user}) => {
 		});
 
 	const noResultParagraph = () => {
+		if(data.length === 0)
+
 		return(
-			<h1>沒有搜尋結果, 可能你要的動物不存在, 或者擴大搜索範圍'</h1>
+			<h1></h1>
 			)
 	}
 
 	return (
 		<>
-			{loadingOrError && <div>{loadingOrError}</div>}
+			{loadingOrError && <h1>{loadingOrError}</h1>}
 			<Row xs={1} md={2} lg={3} xl={4} className="no_padding" >
 				{(data.length === 0) ? noResultParagraph() :
 					data.map((animal, index) => (

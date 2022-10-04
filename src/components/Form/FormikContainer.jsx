@@ -423,9 +423,9 @@ function FormikContainer(props) {
 
 									<FormikControl
 										control="textarea"
-										label="對領養者的要求:*"
+										label="對領養者的要求:"
 										name="requirementToAdopter"
-										placeholder="例子: 愛護貓咪, 承諾只餵食生肉或罐頭, 不餵乾糧, 有防貓網, 每日可陪伴最少20分鐘...  "
+										placeholder="例子: 愛護貓咪, 承諾只餵食生肉或罐頭, 不餵乾糧, 有防貓網, 每日陪玩最少20分鐘...  "
 									/>
 									{/* <FormikControl
 										control="checkbox"
