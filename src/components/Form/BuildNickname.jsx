@@ -52,8 +52,6 @@ function BuildNickName() {
 						onSubmit={onSubmit}
 					>
 						{(formik) => {
-							// console.log('FORMIK PROPS', formik);
-							// console.log('values', formik.values);
 							return (
 								<Form>
 									<div className="d-flex justify-content-center">

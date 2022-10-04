@@ -25,7 +25,7 @@ import { useContext } from 'react';
 import TestSameValue from './components/UI/TestSameValue';
 // const { createProxyMiddleware } = require('http-proxy-middleware');
 
-
+axios.defaults.withCredentials = true
 
 
 // const { createProxyMiddleware } = require('http-proxy-middleware');
@@ -65,7 +65,7 @@ function App() {
 
 
 	const getUser = async () => {
-		axios.get(`${targetServerURL}/auth/login/success/`, { withCredentials: true })
+		axios.get(`${targetServerURL}/auth/login/success/`)
 			.then(async (response) => {
 				const user = response.data
 				if (user.success === false || !user.success) {
