@@ -19,6 +19,7 @@ import '../../App.css';
 
 
 
+
 import { FilePond, registerPlugin } from 'react-filepond';
 import 'filepond/dist/filepond.min.css';
 import FilePondPluginImageExifOrientation from 'filepond-plugin-image-exif-orientation';
@@ -26,6 +27,7 @@ import FilePondPluginImagePreview from 'filepond-plugin-image-preview';
 import 'filepond-plugin-image-preview/dist/filepond-plugin-image-preview.css';
 import FilePondPluginFileValidateType from 'filepond-plugin-file-validate-type'
 import FilePondPluginFileEncode from 'filepond-plugin-file-encode';
+import { targetServerURL } from '../../App';
 
 registerPlugin(FilePondPluginFileValidateType, FilePondPluginImagePreview, FilePondPluginFileEncode)
 
@@ -150,7 +152,7 @@ function FormikContainer(props) {
 
 	});
 
-			console.log(props.animalToBeUpdated)
+			console.log(props.animalToBeUpdated) //!What is this? I dont understand?
 	const onSubmit = (values) => {
 		console.log(('FORM DATA: ', values));
 		if (props.updateAnimalHandler) { //if we are updating an animal
@@ -173,7 +175,7 @@ function FormikContainer(props) {
 		console.log(fileServerIds)
 		values.animalImages = fileServerIds
 		axios
-			.post(`${process.env.REACT_APP_BACKEND_URL}/adoptions/`||'/adoptions/', values, {
+			.post(`${targetServerURL}/adoptions/`||'/adoptions/', values, {
 			})
 			.then((res) => {
 				console.log(res)
@@ -258,8 +260,8 @@ function FormikContainer(props) {
 												}}
 												server={
 													{
-														url: "/adoptions",
-														revert: { url: '/revert' },
+														url: `${targetServerURL}/adoptions`,
+														revert: { url: `/revert` },
 														process: {
 															url: '/process',
 															method: 'POST',
