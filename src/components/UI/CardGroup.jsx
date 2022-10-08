@@ -27,22 +27,15 @@ let onceFor = 0;
 
 const CardGroup = ({user}) => {
 	const navigate = useNavigate();
-	const { queryContext, setQueryContext } = useContext(QueryContext)
-	const [data, setData] = useState([]); //This is for initiating data as empty to ready to GET data
+	const { queryContext, setQueryContext } = useContext(QueryContext) //this is for storing user's filter choice
+	const [data, setData] = useState([]); //This is for initiating data as empty to ready to GET data from backend
 	const [loadingOrError, showLoadingOrError] = useState('loading 載入中...'); //This is for show loading if GET not completed
 	const [show, setShow] = useState(false); //This is for showing modal or not, initial value is not show
 	const [controlNumber, setControlNumber] = useState(null);
 	const [slidersState, setSlidersState] = useState(initialSlidersState);
 	const [confirmModalShow, setConfirmModalShow] = useState(false);
 	const [updateAnimalModalShow, setUpdateAnimalModalShow] = useState(false);
-    // const { setQueryContext } = useContext(QueryContext);
 
-	// console.log('RENDER RENDER RENDER_------------------------------------------------');
-	// console.log('latest shadow', shadow);
-	// console.log('data', data);
-	// console.log('DATA', data);
-	// console.log('QUERY_CONTEXT', queryContext);
-	// console.log('PROPS.QUERY',props.query);
 	const handleShow = (index) => {
 		// console.log('HANDLE_SHOW:control number:', index);
 		setShow(true);
@@ -133,43 +126,36 @@ const CardGroup = ({user}) => {
 
 
 
-	useEffect(() => {
+	useEffect(() => { //This is for fetching the data from backend, according to filter
 		const targetRoute = '/adoptions/'
 		axios
 			.get(`${targetServerURL}${targetRoute}`)
-			.then((values) => {
-				// console.log('values:', values)
-				console.log('values.data:', values.data);
-				let sortedData;
-				console.log('QUERY', queryContext)
-				if(queryContext){
+			.then((values) => { //receive animal data from backend
+				console.log('values.data:', values.data); //for displaying the array of animals
+				let sortedData; //this is for creating a value for later filtering of data
+				// console.log('QUERY', queryContext) //for showing what the user choose to filter, if users do not choose, the value is null
+				if(queryContext){ //if user use filter,
 					if (queryContext.option === 'searchAnimalByType') {
 						sortedData = queryAnimalTypeFilter(values.data, queryContext)
 					} else if (queryContext.option === 'searchAnimalByUserNickName') {
 						sortedData = queryAnimalTypeFilter(values.data, queryContext)
 					}
 				}else {
-					sortedData = shuffleArray(values.data)
+					sortedData = shuffleArray(values.data) //randomize the order to cards
 				}
-				setData(shadowAssigner(splitAvailUnavail(sortedData)))
+				setData(shadowAssigner(splitAvailUnavail(sortedData))) //todo I forgot what is shadowAssigner
 				return shadowAssigner(splitAvailUnavail(sortedData))
 			}).then((dataRetrieved) => {
-					// console.log(dataRetrieved.length)
-				if (dataRetrieved.length === 0) {
-					console.log('no datas')
+				if (dataRetrieved.length === 0) { //if there is no data (no data in array)
 					showLoadingOrError('沒有搜尋結果, 可能你要的動物不存在, 或者擴大搜索範圍')
-				} else {
-				showLoadingOrError('')
-
+				} else if (dataRetrieved.length > 0){
+				showLoadingOrError('') //if there is data, make useState's initial value "loading 載入中..." to disappear
 				}
-			}
-			)
-
-			.catch((err) => {
+			}).catch((err) => {
 				console.log(err);
-				showLoadingOrError(err.message);
+				showLoadingOrError(err.message); //display the error message to users
 			});
-	}, [queryContext])
+	}, [queryContext]) //if users change their selection of this filter, this will run
 
 	for (let i = 0; i < data.length; i++) {
 		initialSlidersState[i] = 0;
@@ -207,34 +193,28 @@ const CardGroup = ({user}) => {
 			return { ...prev, [sliderId]: newIndex };
 		});
 
-	const noResultParagraph = () => {
-		if(data.length === 0)
-
-		return(
-			<h1></h1>
-			)
-	}
-
 	return (
 		<>
-			{loadingOrError && <h1>{loadingOrError}</h1>}
-			<Row xs={1} md={2} lg={3} xl={4} className="no_padding" >
-				{(data.length === 0) ? noResultParagraph() :
-					data.map((animal, index) => (
+			{loadingOrError && <h1>{loadingOrError}</h1>} {/*this is for to show "loading 載入中" or "cannot find" 沒有搜尋結*/}
+			<Row xs={1} md={2} lg={3} xl={4} className="no_padding" > {/*determine the number of cards shown each row according to screen width*/}
+				{data.map((animal, index) => (//todo 'animal' is The current element being processed in the array. Index is the The index of the current element being processed in the array
 					<Col className='no_padding'>
 						<Card
 							className={`no_padding shadow ${animal.shadow && "backdrop"} ${(animal.availableForAdoption === false) && "backdrop"}`}>
+							{/* if that animal is available for adoption or have shadow, then there will be backdrop */}
 							{/* <div>animal.availableForAdoption: {animal.availableForAdoption.toString()}</div> */}
 							{/* <div>animal.adoptionSuccessful: {animal.adoptionSuccessful.toString() }</div> */}
-							{checkHaveShadow(animal) && <div className="backdrop
-							align-items-baseline h-100 w-100 ">
+							{checkHaveShadow(animal) &&
+								<div className="backdrop align-items-baseline h-100 w-100 ">
 								<div className='fs-1 fw-bold m-5' >
 									{animal.shadow && animal.shadow.option === "updateAvail" &&
 									<div>
-										<div className='h-100 m-4 text-warning '>暫停開放</div>
-											<div onClick={() =>
-													updateAnimalHandler({ index:index, option:'updateAvail', avail:true})
-											} className='h-100 m-4 reopen'>按此重新開放</div>
+												<div className='h-100 m-4 text-warning '>暫停開放</div>
+												{(animal.creator) ? (user.nickname === animal.creator.nickname &&
+													<div onClick={() =>
+														updateAnimalHandler({ index: index, option: 'updateAvail', avail: true })
+													} className='h-100 m-4 reopen'>按此重新開放</div>):<div></div>
+												}
 										</div>}
 
 									{animal.shadow && animal.shadow.option === "updateSuccess" &&
@@ -299,8 +279,12 @@ const CardGroup = ({user}) => {
 									}
 										`}
 									<br />
-									名字: {animal.animalName}
-									<br />
+									{animal.animalName != '' && //if that animal has no name, then that space would be skipped
+										<span>
+											<span>名字: {animal.animalName}</span>
+											<br />
+										</span>
+									}
 									性別: {cnTrans(animal.animalSex)}
 									<br />
 									年齡:{' '}
@@ -335,7 +319,9 @@ const CardGroup = ({user}) => {
 											&ensp;詳情及聯絡方法
 										</i>
 									</Button>
-									{(animal.creator)?(user.nickname === animal.creator.nickname && <div><Button
+									{(animal.creator) ? (user.nickname === animal.creator.nickname && //If the user is the creator of that animal, display below button
+										<div>
+									<Button
 										className=" m-2"
 										key={uuidv4()}
 										variant="info"
@@ -363,8 +349,6 @@ const CardGroup = ({user}) => {
 										variant="danger"
 											onClick={() => {
 												setConfirmModalShow({index:index, option:'delete'});
-
-											// deleteAdoptionHandler(index)
 										}}
 									>
 										刪除
@@ -378,7 +362,8 @@ const CardGroup = ({user}) => {
 										}}
 									>
 										完成領養
-									</Button></div>):<div></div>}
+										</Button>
+									</div>) : <div></div>}
 
 								</div>
 								</Card.Body>

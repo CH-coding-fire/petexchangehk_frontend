@@ -86,7 +86,7 @@ function Search({ searchQueryHandler }) {
                                                     ) && (
                                                         <FormikControl
                                                             control="select"
-                                                            label="動物種類 - 第2層"
+                                                            label="動物種類 - 第2層 (可不填直接提交)"
                                                             name="animalGenera"
                                                             options={animalClassifier(values.animalClasses)}
                                                             onBlur={resetLevel3}
@@ -96,7 +96,7 @@ function Search({ searchQueryHandler }) {
                                                     goLevel3classification.includes(values.animalGenera) && (
                                                         <FormikControl
                                                             control="select"
-                                                            label="動物種類 - 第3層"
+                                                            label="動物種類 - 第3層 (可不填直接提交)"
                                                             name="animalSpecies"
                                                             options={animalClassifier(values.animalGenera)}
                                                         />
