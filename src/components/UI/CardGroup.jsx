@@ -270,7 +270,7 @@ const CardGroup = ({user}) => {
 								})}
 							</Carousel>
 							<Card.Body >
-								<Card.Text>
+								<Card.Text className='ps-3'>
 									品种:{' '}
 									{`${animal.animalSpeciesName}<${
 										animal.animalSpecies ? `${cnTrans(animal.animalSpecies)}<` : ''
