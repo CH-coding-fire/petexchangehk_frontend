@@ -1,4 +1,4 @@
-# petexchangehk.com
+## petexchangehk.com
 [petexchangehk.com][1] is a web app for pet adoptions and transactions that emphasize simplicity and convenience to save users the most time.  
 
 ## Motivation and story behind the app.
