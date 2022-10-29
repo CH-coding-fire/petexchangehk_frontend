@@ -15,7 +15,7 @@ import { useContext } from 'react';
 import { useNavigate } from 'react-router-dom';
 import validationText from '../../../package.json'
 
-function Search({ searchQueryHandler }) {
+function Search() {
     const navigate = useNavigate();
     const { setQueryContext } = useContext(QueryContext);
     const initialValues = {
@@ -28,8 +28,7 @@ function Search({ searchQueryHandler }) {
             });
 
     const onSubmit = (query) => {
-        console.log('onSubmitting');
-        console.log(('FORM DATA: ', query));
+        console.log('Query selection: ', query);
         query.option = 'searchAnimalByType'
         setQueryContext(query);
         navigate('/');

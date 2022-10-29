@@ -17,7 +17,14 @@ import splitAvailUnavail from '../../scripts/splitAvailUnavail';
 import { checkHaveShadow, shadowAssigner } from '../../scripts/shadowController';
 import UpdateAnimalModal from './UpdateAnimalModal';
 import { targetServerURL } from '../../App';
+import BackdropMsg from './BackdropMsg';
 
+
+
+//This CardGroup component
+//1.  request and extract data data from the server
+//2. Create cards according to the number of piece of animal data
+//3. Shadow cards according to conditions such as transaction successful and temp close
 
 
 const initialSlidersState = {};
@@ -26,10 +33,10 @@ let onceFor = 0;
 
 
 const CardGroup = ({user}) => {
-	const navigate = useNavigate();
+	const navigate = useNavigate(); //Todo Need to investigate if this is necessary
 	const { queryContext, setQueryContext } = useContext(QueryContext) //this is for storing user's filter choice
 	const [data, setData] = useState([]); //This is for initiating data as empty to ready to GET data from backend
-	const [loadingOrError, showLoadingOrError] = useState('loading 載入中...'); //This is for show loading if GET not completed
+	const [loadingOrErrorMsg, showLoadingOrErrorMsg] = useState('loading 載入中...'); //This is for show loading if GET not completed
 	const [show, setShow] = useState(false); //This is for showing modal or not, initial value is not show
 	const [controlNumber, setControlNumber] = useState(null);
 	const [slidersState, setSlidersState] = useState(initialSlidersState);
@@ -147,13 +154,13 @@ const CardGroup = ({user}) => {
 				return shadowAssigner(splitAvailUnavail(sortedData))
 			}).then((dataRetrieved) => {
 				if (dataRetrieved.length === 0) { //if there is no data (no data in array)
-					showLoadingOrError('沒有搜尋結果, 可能你要的動物不存在, 或者擴大搜索範圍')
+					showLoadingOrErrorMsg('沒有搜尋結果, 可能你要的動物不存在, 或者擴大搜索範圍')
 				} else if (dataRetrieved.length > 0){
-				showLoadingOrError('') //if there is data, make useState's initial value "loading 載入中..." to disappear
+				showLoadingOrErrorMsg('') //if there is data, make useState's initial value "loading 載入中..." to disappear
 				}
 			}).catch((err) => {
 				console.log(err);
-				showLoadingOrError(err.message); //display the error message to users
+				showLoadingOrErrorMsg(err.message); //display the error message to users
 			});
 	}, [queryContext]) //if users change their selection of this filter, this will run
 
@@ -193,43 +200,35 @@ const CardGroup = ({user}) => {
 			return { ...prev, [sliderId]: newIndex };
 		});
 
+
+	//The behavior of the interface:
+	//1. Initially there would be no data, a message of "loading 載入中..." will be displayed.
+	//2. A request will be sent to server to receive data.
+	//3. Card appear according to data
+	//4. The sequence of items in card, is backdrop > carosel > animal details > button
+	//4. If the card has "shadow" (a key in animal's data), then there will be BackdropMsg, e.g. "已完成交易"
 	return (
 		<>
-			{loadingOrError && <h1>{loadingOrError}</h1>} {/*this is for to show "loading 載入中" or "cannot find" 沒有搜尋結*/}
+			{loadingOrErrorMsg && <h1>{loadingOrErrorMsg}</h1>} {/*this is for to show "loading 載入中" or "cannot find" 沒有搜尋結*/}
 			<Row xs={1} md={2} lg={3} xl={4} className="no_padding" > {/*determine the number of cards shown each row according to screen width*/}
 				{data.map((animal, index) => (//todo 'animal' is The current element being processed in the array. Index is the The index of the current element being processed in the array
 					<Col className='no_padding'>
 						<Card
 							className={`no_padding shadow ${animal.shadow && "backdrop"} ${(animal.availableForAdoption === false) && "backdrop"}`}>
-							{/* if that animal is available for adoption or have shadow, then there will be backdrop */}
-							{/* <div>animal.availableForAdoption: {animal.availableForAdoption.toString()}</div> */}
-							{/* <div>animal.adoptionSuccessful: {animal.adoptionSuccessful.toString() }</div> */}
+							{/* if that animal is available for adoption or have shadow, then there will be backdrop, which means the card would be darken and unclickable */}
+							{/**For below checkHaveShadow, if the animal have shadow, then there would be BackdropMsg  */}
 							{checkHaveShadow(animal) &&
-								<div className="backdrop align-items-baseline h-100 w-100 ">
-								<div className='fs-1 fw-bold m-5' >
-									{animal.shadow && animal.shadow.option === "updateAvail" &&
-									<div>
-												<div className='h-100 m-4 text-warning '>暫停開放</div>
-												{(animal.creator) ? (user.nickname === animal.creator.nickname &&
-													<div onClick={() =>
-														updateAnimalHandler({ index: index, option: 'updateAvail', avail: true })
-													} className='h-100 m-4 reopen'>按此重新開放</div>):<div></div>
-												}
-										</div>}
-
-									{animal.shadow && animal.shadow.option === "updateSuccess" &&
-									<div>
-										<div className='h-100 m-4 text-info '>已完成交易/領養</div>
-										</div>}
-								</div>
-							</div>}
+								<BackdropMsg animal={animal} index={index} user={user} updateAnimalHandler={updateAnimalHandler } />
+								} {/*BackdropMsg is for showing it serves to display message according to the condition of the info of animal*/}
 							<Carousel
+								className='carousel slide' //!trying to make it work according to one answer in github
 								key={index}
 								onSelect={() => handleSelect(index)}
-								touch={true}
-								controls={true}
-								indicators={false}
-								interval={null}
+								touch={true} // Whether the carousel should support left/right swipe interactions on touchscreen devices.
+								//! This is not working on iphone Safari
+								controls={true} // Show the Carousel previous and next arrows for changing the current slide
+								indicators={true} // Show a set of slide position indicators (see the horizontal bars in the carousels, it indicates the number of photos )
+								interval={null} //The amount of time to delay between automatically cycling an item. If null, carousel will not automatically cycle.
 								activeIndex={slidersState[index]}
 								nextIcon={
 									<span
@@ -298,10 +297,8 @@ const CardGroup = ({user}) => {
 											style={{ cursor: 'pointer', color: '#663366' }}>
 											{animal.creator.nickname}</span>
 									<br />
-
 									張貼日期: {dateStringToDDMMYY(animal.postDate)}
 									{/* 張貼日期: {animal.postDate.toLocaleDateString()} */}
-
 								</Card.Text>
 
 								<div className="d-flex flex-wrap justify-content-center">
@@ -396,7 +393,6 @@ const CardGroup = ({user}) => {
 					</Col>
 				))}
 			</Row>
-
 		</>
 	);
 };
