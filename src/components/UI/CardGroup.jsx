@@ -18,7 +18,7 @@ import { checkHaveShadow, shadowAssigner } from '../../scripts/shadowController'
 import UpdateAnimalModal from './UpdateAnimalModal';
 import { targetServerURL } from '../../App';
 import BackdropMsg from './BackdropMsg';
-
+import { useSwipeable } from 'react-swipeable';
 
 
 //This CardGroup component
@@ -32,6 +32,7 @@ const cardsModelState = {};
 let onceFor = 0;
 
 
+
 const CardGroup = ({user}) => {
 	const navigate = useNavigate(); //Todo Need to investigate if this is necessary
 	const { queryContext, setQueryContext } = useContext(QueryContext) //this is for storing user's filter choice
@@ -42,6 +43,33 @@ const CardGroup = ({user}) => {
 	const [slidersState, setSlidersState] = useState(initialSlidersState);
 	const [confirmModalShow, setConfirmModalShow] = useState(false);
 	const [updateAnimalModalShow, setUpdateAnimalModalShow] = useState(false);
+
+	const [touchStart, setTouchStart] = useState(null)
+	const [touchEnd, setTouchEnd] = useState(null)
+
+	const minSwipeDistance = 50
+
+const onTouchStart = (e) => {
+  setTouchEnd(null) // otherwise the swipe is fired even with usual touch events
+  setTouchStart(e.targetTouches[0].clientX)
+}
+
+const onTouchMove = (e) => setTouchEnd(e.targetTouches[0].clientX)
+
+const onTouchEnd = () => {
+  if (!touchStart || !touchEnd) return
+  const distance = touchStart - touchEnd
+  const isLeftSwipe = distance > minSwipeDistance
+  const isRightSwipe = distance < -minSwipeDistance
+  if (isLeftSwipe || isRightSwipe) console.log('swipe', isLeftSwipe ? 'left' : 'right')
+  // add your conditional logic here
+	}
+
+	const handlers = useSwipeable({
+		 onSwiped: (eventData) => console.log("User Swiped!", eventData),
+		onSwipedLeft: (eventData) => console.log("User left!", eventData),
+		onSwipedRight: (eventData) => console.log("User right!", eventData),
+});
 
 	const handleShow = (index) => {
 		// console.log('HANDLE_SHOW:control number:', index);
@@ -209,6 +237,14 @@ const CardGroup = ({user}) => {
 	//4. If the card has "shadow" (a key in animal's data), then there will be BackdropMsg, e.g. "已完成交易"
 	return (
 		<>
+			{/* <div {...handlers}> You can swipe here !!!!!!!!!!!!!!!!!</div>; */}
+
+
+			{/* <div {...handlers}> You can swipe here2 !!!!!!!!!!!!!!!!!</div>; */}
+
+
+
+			{/* <div onTouchStart={onTouchStart} onTouchMove={onTouchMove} onTouchEnd={onTouchEnd}>Hello world</div> */}
 			{loadingOrErrorMsg && <h1>{loadingOrErrorMsg}</h1>} {/*this is for to show "loading 載入中" or "cannot find" 沒有搜尋結*/}
 			<Row xs={1} md={2} lg={3} xl={4} className="no_padding" > {/*determine the number of cards shown each row according to screen width*/}
 				{data.map((animal, index) => (//todo 'animal' is The current element being processed in the array. Index is the The index of the current element being processed in the array
@@ -221,11 +257,11 @@ const CardGroup = ({user}) => {
 								<BackdropMsg animal={animal} index={index} user={user} updateAnimalHandler={updateAnimalHandler } />
 								} {/*BackdropMsg is for showing it serves to display message according to the condition of the info of animal*/}
 							<Carousel
-								className='carousel slide' //!trying to make it work according to one answer in github
+								// className='slide' //!trying to make it work according to one answer in github
 								key={index}
 								onSelect={() => handleSelect(index)}
 								touch={true} // Whether the carousel should support left/right swipe interactions on touchscreen devices.
-								//! This is not working on iphone Safari
+								//! This is not working even on developer tools
 								controls={true} // Show the Carousel previous and next arrows for changing the current slide
 								indicators={true} // Show a set of slide position indicators (see the horizontal bars in the carousels, it indicates the number of photos )
 								interval={null} //The amount of time to delay between automatically cycling an item. If null, carousel will not automatically cycle.
@@ -250,6 +286,8 @@ const CardGroup = ({user}) => {
 										}
 									/>
 								}
+
+
 							>
 								{animal.animalImages.map((img, index) => {
 									img = img.replace(
@@ -257,17 +295,23 @@ const CardGroup = ({user}) => {
 										'/upload/w_1000,ar_1:1,c_fill,g_auto'
 									);
 									return (
-										<Carousel.Item>
+										<Carousel.Item >
 											<img
 												key={uuidv4()}
 												className="d-block w-100"
 												src={img}
 												alt="Slides"
+												onClick = {()=>console.log('clicked')}
+												// onTouchStart={onTouchStart} onTouchMove={onTouchMove} onTouchEnd={onTouchEnd}
+												// {...handlers}
 											/>
+
+
 										</Carousel.Item>
 									);
 								})}
 							</Carousel>
+							{/* <div {...handlers}>swipe HERE!!!</div> */}
 							<Card.Body >
 								<Card.Text className='ps-3'>
 									品种:{' '}

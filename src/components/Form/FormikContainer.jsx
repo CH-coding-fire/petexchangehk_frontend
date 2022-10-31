@@ -221,7 +221,7 @@ function FormikContainer(props) {
 										placeholder="例子: 豆奶 (選填)"
 									/>
 									<div className="form-control" ref={myRef}>
-										<div className="fw-bold" >上載圖片:* (最少一幅)</div>
+										<p className="fw-bold" >上載圖片:* (最少一幅)</p>
 
 										{!props.animalToBeUpdated &&
 											<FilePond
@@ -343,7 +343,7 @@ function FormikContainer(props) {
 											<p>動物年齡:</p>
 										</label>
 										<div className="d-flex justify-content-start ">
-											<div>
+											<p>
 												<FormikControl
 													control="input"
 													label="歲*"
@@ -351,8 +351,8 @@ function FormikContainer(props) {
 													placeholder=""
 													size="2"
 												/>
-											</div>
-											<div>
+											</p>
+											<p>
 												<FormikControl
 													control="input"
 													label="月*"
@@ -360,8 +360,8 @@ function FormikContainer(props) {
 													placeholder=""
 													size="2"
 												/>
-											</div>
-											<div>
+											</p>
+											<p>
 												<FormikControl
 													control="input"
 													label="天*"
@@ -369,11 +369,11 @@ function FormikContainer(props) {
 													placeholder=""
 													size="2"
 												/>
-											</div>
+											</p>
 										</div>
 									</div>
 
-									<div className="d-flex">
+									<p className="d-flex">
 										<FormikControl
 											control="radio"
 											label="性別:*"
@@ -381,7 +381,7 @@ function FormikContainer(props) {
 											options={sexOptions}
 											className="d-flex "
 										/>
-									</div>
+									</p>
 
 									<FormikControl
 										control="radio"
@@ -396,7 +396,7 @@ function FormikContainer(props) {
 										name="healthCondition"
 										placeholder="例子:良好, 沒有疾病"
 									/>
-									<div className="d-flex">
+									<p className="d-flex">
 										<FormikControl
 											control="radio"
 											label="售賣或領養性質:*"
@@ -405,7 +405,7 @@ function FormikContainer(props) {
 											onClick={() => {values.animalPrice = ''}}
 											className="d-flex "
 										/>
-									</div>
+									</p>
 									{(values.sellOrFreeOptions === "sell" || values.sellOrFreeOptions ==="paidAdoption" )&& (<FormikControl
 													control="input"
 										label="價錢或補償: ($港幣HKD)"

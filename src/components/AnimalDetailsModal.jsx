@@ -19,6 +19,7 @@ function AnimalDetailsModal(props) {
 					<Modal.Title>詳細資料</Modal.Title>
 				</Modal.Header>
 				<Modal.Body>
+					<p>
 					品种:{' '}
 					{`${animal.animalSpeciesName}<${
 						animal.animalSpecies ? `${cnTrans(animal.animalSpecies)}<` : ''
@@ -26,8 +27,7 @@ function AnimalDetailsModal(props) {
 						animal.animalClasses ? `${cnTrans(animal.animalClasses)}` : ''
 					}`}
 					<br />
-					名字:
-					{animal.animalName}
+					名字: {animal.animalName}
 					<br />
 					品种: {animal.animalSpeciesName}
 					<br />
@@ -53,6 +53,12 @@ function AnimalDetailsModal(props) {
 					交收方法: {animal.deliveryInfo}
 					<br />
 					張貼日期: {dateStringToDDMMYY(animal.postDate)}
+					</p>
+
+
+
+
+
 				</Modal.Body>
 				<Modal.Footer>
 					<Button variant="secondary" onClick={props.handleClose}>
